@@ -4,7 +4,6 @@ module ALU (
     input logic signed [7:0] A, //Array to operate with
     input logic signed [7:0] B, //Array to operate with
     input logic unsigned [2:0] Cntr, //Defines the type of operation
-    input logic clk, //Clock
     output logic unsigned [3:0] ALUFlags, //4-bits state of differents operations result: N (Negative), Z (Zero), C (Carry out), V (Overflow)
     output logic signed [7:0] R //Result
 );
@@ -29,29 +28,23 @@ module ALU (
     localparam negCarryOverFlag = 0111; //Negative, carry and overflow Flag
     localparam noFlag = 1000; //No Flag
 
-
-    // //Definition of control values
-    // typedef enum logic [2:0] {Add, Sub, And, Or, Not, Equal, Nimp1, Nimp2} control;
-
     //Signals
     reg [7:0] R_aux;
-    logic [3:0] Flag;
-    logic [2:0] operation; /*Addition = 000;
-                             Substraction = 001; 
-                             And = 010; 
-                             Or = 011; 
-                             Not = 100; 
-                             Equal = 101; 
-                             Nimp1 = 110; 
-                             Nimp2 = 111;
+    //logic [3:0] Flag;
+    logic [2:0] operation;  /*Addition = 000;
+                            Substraction = 001; 
+                            And = 010; 
+                            Or = 011; 
+                            Not = 100; 
+                            Equal = 101; 
+                            Nimp1 = 110; 
+                            Nimp2 = 111;
                             */
-    //control ctrl;
 
     //Assigments
     assign R_aux <= R; //Ask if this is posible
 
     //Functions
-
     //Function that detects a carry out flag
     function logic carry_out(logic signed [N-1:0] a, logic signed [N-1:0] b, logic op);
         
@@ -96,27 +89,27 @@ module ALU (
 
         logic zeroD = 0;
 
-        if ((A+B) == 0) && (op == Add) begin
+        if ((a+b) == 0) && (op == add) begin
             zeroD = 1;
         end
 
-        if ((A-B) == 0) && (op == Sub) begin
+        if ((a-b) == 0) && (op == Sub) begin
             zeroD = 1;
         end
 
-        if ((A&B) == 0) && (op == And) begin
+        if ((a&b) == 0) && (op == And) begin
             zeroD = 1;
         end
 
-        if ((A|B) == 0) && (op = Or) begin
+        if ((a|b) == 0) && (op = Or) begin
             zeroD = 1;
         end
 
-        if ((~B) == 0) && (op == Not) begin
+        if ((~b) == 0) && (op == Not) begin
             zeroD = 1;
         end
 
-        if (B == 0) && (op == Equal) begin
+        if (b == 0) && (op == Equal) begin
             zeroD = 1;
         end
 
@@ -133,27 +126,27 @@ module ALU (
 
         logic negative = 0;
 
-        if ((A+B) < 0) && (op == Add) begin
+        if ((a+b) < 0) && (op == Add) begin
             negative = 1;
         end
 
-        if ((A-B) < 0) && (op == Sub) begin
+        if ((a-b) < 0) && (op == Sub) begin
             negative = 1;
         end
 
-        if ((A&B) < 0) && (op == And) begin
+        if ((a&b) < 0) && (op == And) begin
             negative = 1;
         end
 
-        if ((A|B) < 0) && (op = Or) begin
+        if ((a|b) < 0) && (op = Or) begin
             negative = 1;
         end
 
-        if ((~B) < 0) && (op == Not) begin
+        if ((~b) < 0) && (op == Not) begin
             negative = 1;
         end
 
-        if (B < 0) && (op == Equal) begin
+        if (b < 0) && (op == Equal) begin
             negative = 1;
         end
 
@@ -170,35 +163,35 @@ module ALU (
     
         logic [3:0] flagDef = 0;
 
-        if (carry_out(A, B, operation[0]) && overflow_detector(A, B, operation[0])) begin //If there is an overflow and carry out Flag
+        if (carry_out(a, b, op[0]) && overflow_detector(a, b, op[0])) begin //If there is an overflow and carry out Flag
             flagDef = carryOverFlag; 
         end
 
-        if (carry_out(A, B, operation[0]) && negative_detector(A, B, operation)) begin //If there is an negative and carry out Flag
+        if (carry_out(a, b, op[0]) && negative_detector(a, b, op)) begin //If there is an negative and carry out Flag
             flagDef = negCarryFlag; 
         end
 
-        if (overflow_detector(A, B, operation[0]) && negative_detector(A, B, operation)) begin //If there is an overflow and negative Flag
+        if (overflow_detector(a, b, op[0]) && negative_detector(a, b, op)) begin //If there is an overflow and negative Flag
             flagDef = negOverFlag;
         end
 
-        if (overflow_detector(A, B, operation[0]) && negative_detector(A, B, operation) && carry_out(A, B, operation[0])) begin //If there is an overflow, negative and carry out Flag
+        if (overflow_detector(a, b, op[0]) && negative_detector(a, b, op) && carry_out(a, b, op[0])) begin //If there is an overflow, negative and carry out Flag
             flagDef = negCarryOverFlag;
         end
 
-        if (carry_out(A, B, operation[0])) begin //If there is a carry out Flag
+        if (carry_out(a, b, op[0])) begin //If there is a carry out Flag
             flagDef = carryFlag;
         end
 
-        if (overflow_detector(A, B, operation[0])) begin //If there is an overflow Flag
+        if (overflow_detector(a, b, op[0])) begin //If there is an overflow Flag
             flagDef = overflowFlag;
         end
 
-        if (negative_detector(A, B, operation)) begin //If there is a negative Flag
+        if (negative_detector(a, b, op)) begin //If there is a negative Flag
             flagDef = overflowFlag;
         end
 
-        if (zero_detector(A, B, operation)) begin //If there is a zero Flag
+        if (zero_detector(a, b, op)) begin //If there is a zero Flag
             flagDef = zeroFlag;
         end
 
@@ -211,7 +204,7 @@ module ALU (
     endfunction
 
     //ALU definition
-    always @(posedge clk) begin
+    always_comb begin
 
         case(Cntr)
         
@@ -219,56 +212,56 @@ module ALU (
                 R = A + B;
                 operation = Add;
 
-                Flag = flagDefinition(A, B, operation);
+                ALUFlags = flagDefinition(A, B, operation);
             end
 
             Sub: begin
                 R = A - B;
                 operation = Sub;
 
-                Flag = flagDefinition(A, B, operation);
+                ALUFlags = flagDefinition(A, B, operation);
             end
 
             And : begin
                 R = A & B;
                 operation = And;
 
-                Flag = flagDefinition(A, B, operation);
+                ALUFlags = flagDefinition(A, B, operation);
             end
 
             Or: begin
                 R = A | B;
                 operation = Or;
 
-                Flag = flagDefinition(A, B, operation);
+                ALUFlags = flagDefinition(A, B, operation);
             end
 
             Not: begin
                 R = ~B;
                 operation = Not;
 
-                Flag = flagDefinition(A, B, operation);
+                ALUFlags = flagDefinition(A, B, operation);
             end
 
             Equal: begin
                 R = B;
                 operation = Equal;
 
-                Flag = flagDefinition(A, B, operation);
+                ALUFlags = flagDefinition(A, B, operation);
             end
 
             Nimp1: begin
                 $display("Not implemented function");
                 operation = Nimp1;
 
-                Flag = flagDefinition(A, B, operation);
+                ALUFlags = flagDefinition(A, B, operation);
             end
 
             Nimp2: begin
                 $display("Not implemented function");
                 operation = Nimp2;
 
-                Flag = flagDefinition(A, B, operation);
+                ALUFlags = flagDefinition(A, B, operation);
             end
 
             default: begin
