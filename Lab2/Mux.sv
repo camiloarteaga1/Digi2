@@ -1,6 +1,8 @@
-module Mux (
+module Mux #(
     //Array size, number of bits
     parameter N = 8;
+)
+(
     //Ports definition
     input logic unsigned [N-1:0] Src2; //Signals for Mux1, Mux2
     input logic unsigned [1:0] RDst3; //Signal for Mux1
