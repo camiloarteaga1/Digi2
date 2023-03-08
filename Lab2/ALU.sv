@@ -1,9 +1,11 @@
-module ALU (
+module ALU #(
     parameter N = 8; //Number of bits of the arrays
+)
+(
     //Port definition
     input logic signed [N-1:0] A, //Array to operate with
     input logic signed [N-1:0] B, //Array to operate with
-    input logic unsigned [2:0] Cntr, //Defines the type of operation
+    input logic unsigned     [2:0] Cntr, //Defines the type of operation
     output logic unsigned [3:0] ALUFlags, //4-bits state of differents operations result: N (Negative), Z (Zero), C (Carry out), V (Overflow)
     output logic signed [N-1:0] R //Result
 );
