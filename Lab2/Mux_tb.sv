@@ -54,6 +54,5 @@ module Mux_tb ();
 
         $stop
     end
-
-
+    
 endmodule
