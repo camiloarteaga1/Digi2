@@ -47,7 +47,7 @@ module ALU (
 
         casez(Cntr)
         
-            00?: begin
+            00?: begin //Addition and substraction
                 Sum = A + bTemp + Cntr[0];
                 R_aux = Sum;
             end
@@ -83,5 +83,5 @@ module ALU (
             end
         endcase
     end
-    
+
 endmodule
