@@ -5,14 +5,14 @@ module ALU_tb ();
     localparam delay = 30ps;
     
     //Signals
-    logic signed [N-1:0] A; //Array to operate with
-    logic signed [N-1:0] B; //Array to operate with
+    logic [N-1:0] A; //Array to operate with
+    logic [N-1:0] B; //Array to operate with
     logic unsigned [2:0] Cntr; //Defines the type of operation
     logic unsigned [3:0] ALUFlags; //4-bits state of differents operations result: N (Negative), Z (Zero), C (Carry out), V (Overflow)
-    logic [N-1:0] R; //Result
+    logic [N-1:0] Result; //Result
 
     //Definition of ALU
-    ALU alu (.A(A), .B(B), .Cntr(Cntr), .ALUFlags(ALUFlags), .R(R));
+    ALU alu (.A(A), .B(B), .Cntr(Cntr), .ALUFlags(ALUFlags), .Result(Result));
 
     //Block
     initial begin
