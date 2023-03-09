@@ -18,27 +18,30 @@ module Data_Memory #(
         if (WE) begin
             RAM[Addr] <= WriteData;
         end
-
-        if ((Addr == 253) && (WE)) begin
-            WriteP1 <= RAM[Addr];
-        end
-
-        if ((Addr == 254) && (!WE)) begin
-            ReadData <= {RAM[Addr][N-1:1], ReadP2};
-        end
-
-        if ((Addr == 255) && (!WE)) begin
-            ReadData <= ReadP3;
-        end
-
-        else begin
-            ReadData <= RAM[Addr];
-        end
-
     end
 
-    // assign WriteP1 = ((Addr == 253) && (WE)) ? RAM[Addr] : 0;
-    // assign ReadData = ((Addr == 254) && (!WE)) ? {RAM[Addr][N-1:1], ReadP2} : RAM[Addr];
-    // assign ReadData = ((Addr == 255) && (!WE)) ? ReadP3 : RAM[Addr];
+    always_comb begin
+
+       WriteP1 = ((Addr == 253) && (WE)) ? WriteData : 0;
+       ReadData[0] = ((Addr == 254) && (!WE)) ? ReadP2 : 0;
+       ReadData = ((Addr == 255) && (!WE)) ? ReadP3 : RAM[Addr]; 
+			
+
+//        if ((Addr == 253) && (WE)) begin
+//            WriteP1 = WriteData;
+//        end
+//
+//        if ((Addr == 254) && (!WE)) begin
+//            ReadData[0] = ReadP2;
+//        end
+//
+//        if ((Addr == 255) && (!WE)) begin
+//            ReadData = ReadP3;
+//        end
+//
+//        else begin
+//            ReadData = RAM[Addr];
+//        end
+    end
 
 endmodule
