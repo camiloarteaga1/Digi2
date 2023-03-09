@@ -1,6 +1,7 @@
 module RegisterFile (
 	input logic [1:0] RA1,RA2,RA3,
-	input logic [7:0] WD3,RD1,RD2,
+	output logic [7:0] RD1,RD2,
+	input logic [7:0] WD3,
 	input logic WE3, reset, CLK
 );
 
@@ -10,13 +11,13 @@ module RegisterFile (
 	assign RD1 = Register[RA1];
 	assign RD2 = Register[RA2];
 	
-	always_ff @(posedge clk, posedge reset) begin
+	always_ff @(posedge CLK, posedge reset) begin
 		if (reset) begin//reset registers
 			for (int i = 0; i<4; ++i) 
-							Register[i] = 8'h00;	
+							Register[i] <= 8'h00;	
 		end 
 			else if (WE3==0) begin//enable
-					Register[RA3] = WD3;
+					Register[RA3] <= WD3;
 		end
 	end
 
@@ -28,22 +29,19 @@ module RegisterFile_tb ();
 	logic [7:0] WD3,RD1,RD2;
 	logic WE3,reset,CLK;
 	
-	localparam delay = 10us;
+	localparam delay = 30ps;
 	
-	RegisterFile REG(RA1,RA2,RA3,WD3,RD1,RD2,WE3,Reset,CLK);
-		
-		
-		always #(delay/2) CLK = ~CLK;
+	RegisterFile REG(.RA1(RA1),.RA2(RA2),.RA3(RA3),.RD1(RD1),.RD2(RD2),.WD3(WD3),.WE3(WE3),.reset(reset),.CLK(CLK));
 		
 		initial begin
 			
 			CLK = 1'b0;
-			Reset = 1'b1;
+			reset = 1'b1;
 			WE3 = 1'b1;
 			WD3 = 8'b00000011;
 			#delay;
 			
-			Reset = 1'b0;
+			reset = 1'b0;
 			
 			#delay;
 			WE3 = 1'b0;
@@ -51,14 +49,15 @@ module RegisterFile_tb ();
 			RA2 = 2'b10;
 			RA3 = 2'b11;
 			
-			#(delay*10);
+			#delay;
 			RA3 = 2'b01;
 			
-			#(delay*10);
+			#delay;
+			
 			$stop;
 			
 		end
+		
+			always #(delay/2) CLK = ~CLK;
 	
-	
-
 endmodule
