@@ -22,7 +22,7 @@ module Mux_tb ();
     ///Definition of Mux
     Mux mx (.Src2(Src2), .RDst3(RDst3), .RD2(RD2), .R(R), .ReadData(ReadData), //Input signals
             .RA2(RA2), .B(B), .Result(Result), //Ouput signals
-            .WE(WE), .ALUSrc2(ALUSrc2), .ALUorM(ALUorM); //Control signals
+            .WE(WE), .ALUSrc2(ALUSrc2), .ALUorM(ALUorM)); //Control signals
 
     //Block
     initial begin
@@ -52,7 +52,7 @@ module Mux_tb ();
         R = 128; ReadData = 232; ALUorM = 0; //Mux3
         #delay;
 
-        $stop
+        $stop;
     end
     
 endmodule
