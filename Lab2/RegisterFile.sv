@@ -1,7 +1,7 @@
 module RegisterFile (
 	input logic [1:0] RA1,RA2,RA3,
-	input logic [7:0] WD3,RD1,RD2
-	input logic WE3, reset, CLK,
+	input logic [7:0] WD3,RD1,RD2,
+	input logic WE3, reset, CLK
 );
 
 	logic [7:0] Register [3:0];//4 registers of 8-bits each
