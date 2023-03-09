@@ -5,14 +5,14 @@ module Data_Memory_tb ();
     localparam clockCycle = 30ps;
 
     ///signals
-    logic signed [N-1:0] Addr; //Memory address
-    logic signed [N-1:0] WriteData; //Memory address
+    logic [N-1:0] Addr; //Memory address
+    logic [N-1:0] WriteData; //Memory address
     logic WE; //Write Enable
     logic clk; //Clock
     logic ReadP2; //Button
-    logic signed [N-1:0] ReadP3; //Switchs
-    logic signed [N-1:0] ReadData; //Read Data
-    logic signed [N-1:0] WriteP1; //Seven segments display
+    logic [N-1:0] ReadP3; //Switchs
+    logic [N-1:0] ReadData; //Read Data
+    logic [N-1:0] WriteP1; //Seven segments display
 
     Data_Memory Memory (.Addr(Addr), .WriteData(WriteData), .WE(WE), .clk(clk), .ReadP2(ReadP2), .ReadP3(ReadP3), .ReadData(ReadData), .WriteP1(WriteP1));
 
