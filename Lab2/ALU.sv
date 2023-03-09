@@ -6,7 +6,7 @@ module ALU #(
     input logic signed [N-1:0] B, //Array to operate with
     input logic unsigned [2:0] Cntr, //Defines the type of operation
     output logic unsigned [3:0] ALUFlags, //4-bits state of differents operations result: N (Negative), Z (Zero), C (Carry out), V (Overflow)
-    output logic signed [N-1:0] R //Result
+    output logic [N-1:0] R //Result
 );
 
     //Parameters
@@ -44,7 +44,7 @@ module ALU #(
     assign ALUFlags[3] = (Cntr[0] ~^ A ~^ B) & (A ^ sum[N]) & (~Cntr[1]); //Overflow Flag
 
     //ALU definition
-    always_comb begin
+    always @* begin
 
         casez(Cntr)
         

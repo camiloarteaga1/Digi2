@@ -9,7 +9,7 @@ module ALU_tb ();
     logic signed [N-1:0] B; //Array to operate with
     logic unsigned [2:0] Cntr; //Defines the type of operation
     logic unsigned [3:0] ALUFlags; //4-bits state of differents operations result: N (Negative), Z (Zero), C (Carry out), V (Overflow)
-    logic signed [N-1:0] R; //Result
+    logic [N-1:0] R; //Result
 
     //Definition of ALU
     ALU alu (.A(A), .B(B), .Cntr(Cntr), .ALUFlags(ALUFlags), .R(R));
