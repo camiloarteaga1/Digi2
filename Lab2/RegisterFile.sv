@@ -15,7 +15,7 @@ module RegisterFile (
 			for (int i = 0; i<4; ++i) 
 							Register[i] = 8'h00;	
 		end 
-			else if (!WE3) begin//enable
+			else if (WE3==0) begin//enable
 					Register[RA3] = WD3;
 		end
 	end
