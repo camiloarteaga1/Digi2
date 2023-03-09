@@ -1,0 +1,154 @@
+    //Definition of control values
+    typedef enum logic [3:0] {zeroFlag, negativeFlag, carryFlag, overflowFlag, carryOverFlag, negOverFlag, negCarryFlag, negCarryOverFlag} Flags;
+
+    Flags Flag;
+    logic Ocarry, auxOver, Fcarry, op1, op2, sum, sign_a, sign_b, sign_res, zeroD, negative;    
+
+//Cases of flags
+
+    always_comb begin
+        
+        case(Flag)
+
+            zeroFlag: begin //Function that detects a zero flag
+                
+                zeroD = 0;
+
+                if ((A+B) == 0) && (op == Add) begin
+                    zeroD = 1;
+                end
+
+                if ((A-B) == 0) && (op == Sub) begin
+                    zeroD = 1;
+                end
+
+                if ((A&B) == 0) && (op == And) begin
+                    zeroD = 1;
+                end
+
+                if ((A|B) == 0) && (op = Or) begin
+                    zeroD = 1;
+                end
+
+                if ((~B) == 0) && (op == Not) begin
+                    zeroD = 1;
+                end
+
+                if (B == 0) && (op == Equal) begin
+                    zeroD = 1;
+                end
+
+                else begin
+                    zeroD = 0;
+                end 
+            end
+
+            negativeFlag: begin //Function that detects a negative flag
+
+                negative = 0;
+
+                if ((A+B) < 0) && (op == Add) begin
+                    negative = 1;
+                end
+
+                if ((A-B) < 0) && (op == Sub) begin
+                    negative = 1;
+                end
+
+                if ((A&B) < 0) && (op == And) begin
+                    negative = 1;
+                end
+
+                if ((A|B) < 0) && (op = Or) begin
+                    negative = 1;
+                end
+
+                if ((~B) < 0) && (op == Not) begin
+                    negative = 1;
+                end
+
+                if (B < 0) && (op == Equal) begin
+                    negative = 1;
+                end
+
+                else begin
+                    negative = 0;
+                end
+            end
+
+            carryFlag: begin //Function that detects a carry out flag
+                
+                Fcarry = 0;
+
+                for (int i = 0; i < N; ++i) begin
+
+                    op1 = op ? A[i] & ~Fcarry : A[i];
+                    op2 = op ? ~B[i] & ~Fcarry : B[i];
+                    sum = op1 + op2 + Fcarry;
+                    Fcarry = (sum > 1) ? 1 : 0;
+                end
+            end
+
+            overflowFlag: begin //Function that detects an overflow flag
+                
+                Ocarry = 0;
+                sign_a = A[N-1];
+                sign_b = B[N-1];
+                sign_res;
+
+                for (int i = 0; i < N; ++i) begin
+                    op1 = op ? A[i] & ~Ocarry : A[i];
+                    op2 = op ? ~B[i] & ~Ocarry : B[i];
+                    sum = op1 + op2 + Ocarry;
+                    Ocarry = (sum > 1) ? 1 : 0;
+                end
+
+                sign_res = op ? ~(A[N-1] ^ B[N-1]) & A[N-1] : (sign_a ^ sign_b);
+
+                auxOver = (sign_res ^ sign_a) && (sign_res ^ sign_b); //0 if there is not overflow, 1 if there is overflow
+            end
+
+            default: begin
+                ALUFlags = cnoFlag;
+            end
+
+        endcase
+
+        //ALUFlag type assigment
+        if (zeroD == 1) begin
+            ALUFlags = czeroFlag;
+        end
+
+        if (negative == 1) begin
+            ALUFlags = cnegativeFlag;
+        end
+
+        if (Fcarry == 1) begin
+            ALUFlags = ccarryFlag;
+        end
+
+        if (auxOver == 1) begin
+            ALUFlags = coverflowFlag;
+        end
+
+        if(negative == 1) && (Fcarry == 1) begin
+            ALUFlags = cnegCarryFlag;
+        end
+
+        if(negative == 1) && (auxOver == 1) begin
+            ALUFlags = cnegOverFlag;
+        end
+
+        if(Fcarry == 1) && (auxOver == 1) begin
+            ALUFlags = ccarryOverFlag;
+        end
+
+        if(Fcarry == 1) && (auxOver == 1) && (negative == 1) begin
+            ALUFlags = cnegCarryOverFlag;
+        end
+
+        else begin
+            ALUFlags = cnoFlag;
+        end
+
+    end
