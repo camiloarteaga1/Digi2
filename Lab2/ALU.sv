@@ -1,7 +1,6 @@
 module ALU #(
-    parameter N = 8; //Number of bits of the arrays
-)
-(
+    parameter N = 8 //Number of bits of the arrays
+) (
     //Port definition
     input logic signed [N-1:0] A, //Array to operate with
     input logic signed [N-1:0] B, //Array to operate with
@@ -31,7 +30,7 @@ module ALU #(
     */
 
     //Signals
-    reg [N:0] R_aux = N'b0;
+    reg [N:0] R_aux = 8'b0;
     logic [N:0] sum;
 
     //Assigments
@@ -39,19 +38,19 @@ module ALU #(
     assign bTemp = Cntr[0] == 0 ? B : ~B;
 
     //Flags
-    assign ALUFlags[0] = Result == 0 ? 1 : 0; //Zero Flag
-    assign ALUFlags[1] = ~Cntr[1] & Sum[N]; //Carry Flag
+    assign ALUFlags[0] = R == 0 ? 1 : 0; //Zero Flag
+    assign ALUFlags[1] = ~Cntr[1] & sum[N]; //Carry Flag
     assign ALUFlags[2] = R_aux[N]; //Negative Flag
-    assign ALUFlags[3] = (Cntr[0] ~^ A ~^ B) & (A ^ Sum[N]) & (~Cntr[1]); //Overflow Flag
+    assign ALUFlags[3] = (Cntr[0] ~^ A ~^ B) & (A ^ sum[N]) & (~Cntr[1]); //Overflow Flag
 
     //ALU definition
-    always_comb begin
+    always @* begin
 
         casez(Cntr)
         
-            00?: begin //Addition and substraction
-                Sum = A + bTemp + Cntr[0];
-                R_aux = Sum;
+            Add | Sub: begin //Addition and substraction
+                sum = A + bTemp + Cntr[0];
+                R_aux = sum;
             end
 
             And : begin
