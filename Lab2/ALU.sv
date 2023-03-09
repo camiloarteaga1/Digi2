@@ -30,7 +30,7 @@ module ALU #(
     */
 
     //Signals
-    reg [N:0] R_aux = 8'b0;
+    logic [N:0] R_aux;
     logic [N:0] sum;
 
     //Assigments
@@ -44,11 +44,11 @@ module ALU #(
     assign ALUFlags[3] = (Cntr[0] ~^ A ~^ B) & (A ^ sum[N]) & (~Cntr[1]); //Overflow Flag
 
     //ALU definition
-    always @* begin
+    always_comb begin
 
         casez(Cntr)
         
-            Add | Sub: begin //Addition and substraction
+            3'b00? : begin //Addition and substraction
                 sum = A + bTemp + Cntr[0];
                 R_aux = sum;
             end
@@ -71,12 +71,12 @@ module ALU #(
 
             Nimp1: begin
                 $display("Not implemented function");
-
+                R_aux = 0;
             end
 
             Nimp2: begin
                 $display("Not implemented function");
-
+                R_aux = 0;
             end
 
             default: begin
