@@ -128,9 +128,11 @@ module FSM_Unit (
                 nextState = S0;
             end
 
-            default:
+            default:begin
+		
                 InstrAddr = 8'h00;
                 nextState = S0;
+				end
         endcase
     end
 

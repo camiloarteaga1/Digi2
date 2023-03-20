@@ -1,0 +1,47 @@
+# Copyright (C) 2020  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and any partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel FPGA IP License Agreement, or other applicable license
+# agreement, including, without limitation, that your use is for
+# the sole purpose of programming logic devices manufactured by
+# Intel and sold by Intel or its authorized distributors.  Please
+# refer to the applicable agreement for further details, at
+# https://fpgasoftware.intel.com/eula.
+
+# Quartus Prime Version 20.1.0 Build 711 06/05/2020 SJ Lite Edition
+# File: C:\Users\drdan\Documents\GitHub\Digi2\Lab2\SimpleCPUPin.csv
+# Generated on: Mon Mar 20 18:40:10 2023
+
+# Note: The column header names should not be changed if you wish to import this .csv file into the Quartus Prime software.
+
+To,Direction,Location,I/O Bank,VREF Group,I/O Standard,Reserved,Current Strength,Slew Rate,Differential Pair,Strict Preservation
+ReadP2,Input,PIN_A7,7,B7_N0,,,,,,
+ReadP3[7],Input,PIN_A14,7,B7_N0,,,,,,
+ReadP3[6],Input,PIN_A13,7,B7_N0,,,,,,
+ReadP3[5],Input,PIN_B12,7,B7_N0,,,,,,
+ReadP3[4],Input,PIN_A12,7,B7_N0,,,,,,
+ReadP3[3],Input,PIN_C12,7,B7_N0,,,,,,
+ReadP3[2],Input,PIN_D12,7,B7_N0,,,,,,
+ReadP3[1],Input,PIN_C11,7,B7_N0,,,,,,
+ReadP3[0],Input,PIN_C10,7,B7_N0,,,,,,
+clk,Input,PIN_P11,3,B3_N0,,,,,,
+displays[13],Output,PIN_C18,7,B7_N0,,,,,,
+displays[12],Output,PIN_D18,6,B6_N0,,,,,,
+displays[11],Output,PIN_E18,6,B6_N0,,,,,,
+displays[10],Output,PIN_B16,7,B7_N0,,,,,,
+displays[9],Output,PIN_A17,7,B7_N0,,,,,,
+displays[8],Output,PIN_A18,7,B7_N0,,,,,,
+displays[7],Output,PIN_B17,7,B7_N0,,,,,,
+displays[6],Output,PIN_C14,7,B7_N0,,,,,,
+displays[5],Output,PIN_E15,7,B7_N0,,,,,,
+displays[4],Output,PIN_C15,7,B7_N0,,,,,,
+displays[3],Output,PIN_C16,7,B7_N0,,,,,,
+displays[2],Output,PIN_E16,7,B7_N0,,,,,,
+displays[1],Output,PIN_D17,7,B7_N0,,,,,,
+displays[0],Output,PIN_C17,7,B7_N0,,,,,,
+reset,Input,PIN_B8,7,B7_N0,,,,,,

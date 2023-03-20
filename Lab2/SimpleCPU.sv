@@ -18,8 +18,8 @@ module SimpleCPU (
     logic [7:0] Src2; //Register
 
     //Modules connections
-    Controller_Unit_FSM controller(.clk(clk), .reset(reset), .ALUFlags(ALUFlags), .WE(WE), .ALUorM(ALUorM), .ALUCntr(ALUCntr), .ALUSrc2(ALUSrc2), .RDst3(RDst3), .RSrc1(RSrc1), .Src2(Src2));
-    Datapath datap(.RSrc1(RSrc1), .RDst3(RDst3), .Reset(reset), .CLK(clk), .Src2(Src2), .WE(WE), .ALUSrc2(ALUSrc2), .ALUorM(ALUorM), .ALUCntr(ALUCntr), .ReadP2(~ReadP2), .ReadP3(ReadP3), .ALUFlags(ALUFlags), .WriteP1(WriteP1));
+    Controller_Unit_FSM controller(.clk(clk), .reset(~reset), .ALUFlags(ALUFlags), .WE(WE), .ALUorM(ALUorM), .ALUCntr(ALUCntr), .ALUSrc2(ALUSrc2), .RDst3(RDst3), .RSrc1(RSrc1), .Src2(Src2));
+    Datapath datap(.RSrc1(RSrc1), .RDst3(RDst3), .Reset(~reset), .CLK(clk), .Src2(Src2), .WE(WE), .ALUSrc2(ALUSrc2), .ALUorM(ALUorM), .ALUCntr(ALUCntr), .ReadP2(~ReadP2), .ReadP3(ReadP3), .ALUFlags(ALUFlags), .WriteP1(WriteP1));
 
     //Seven Segments Displays
     SevenSegmentDisplay display1(.Hex_in(WriteP1[7:4]), .Segment_out(displays[13:7]));
