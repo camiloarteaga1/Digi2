@@ -2,7 +2,7 @@ module Controller_Unit_FSM (
     //Ports definiton
     input logic clk,
     input logic reset,
-    input logic [2:0] ALUFlags,
+    input logic [3:0] ALUFlags,
     output logic WE,
     output logic ALUorM,
     output logic [2:0] ALUCntr,

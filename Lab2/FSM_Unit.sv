@@ -2,7 +2,7 @@ module FSM_Unit (
     //Ports definition
     input logic clk,
     input logic reset,
-    input logic [2:0] ALUFlags,
+    input logic [3:0] ALUFlags,
     output logic [7:0] InstrAddr
 );
 
