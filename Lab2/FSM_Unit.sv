@@ -7,7 +7,7 @@ module FSM_Unit (
 );
 
     //Definition of states
-    typedef enum logic [5:0] {S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17} State;
+    typedef enum logic [5:0] {S0, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14, S15, S16, S17, S18, S19, S20, S21, S22, S23} State;
 
     //Signals
     State currentState, nextState;
@@ -38,8 +38,13 @@ module FSM_Unit (
 
             S2: begin
                 InstrAddr = 8'h02;
-                nextState = S3;
-            end
+                if (ALUFlags[0] == 0) begin
+                    nextState = S1;                
+                end
+                else begin
+                    nextState = S3;
+					end
+				end
 
             S3: begin
                 InstrAddr = 8'h03;
@@ -68,18 +73,17 @@ module FSM_Unit (
 
             S8: begin
                 InstrAddr = 8'h08;
-                nextState = S9;
-            end
+                if (ALUFlags[0] == 0) begin
+                    nextState = S7;                
+                end
+                else begin
+                    nextState = S9;
+					end
+				end
 
             S9: begin
                 InstrAddr = 8'h09;
-                
-                if (ALUFlags[0] == 0) begin
-                    nextState = S8;                
-                end
-                else begin
-                    nextState = S10;
-                end
+                nextState = S10;
             end
 
             S10: begin
@@ -89,7 +93,12 @@ module FSM_Unit (
 
             S11: begin
                 InstrAddr = 8'h11;
-                nextState = S12;
+                if (ALUFlags[0] == 0) begin
+                    nextState = S10;                
+                end
+                else begin
+                    nextState = S12;
+                end
             end
 
             S12: begin
@@ -99,18 +108,18 @@ module FSM_Unit (
 
             S13: begin
                 InstrAddr = 8'h13;
-                nextState = S14;
-            end
+                if (ALUFlags[0] == 0) begin
+                    nextState = S12;                
+                end
+                else begin
+                    nextState = S14;
+					end
+				end
 
             S14: begin
                 InstrAddr = 8'h14;
+                nextState = S15;
                 
-                if (ALUFlags[0] == 0) begin
-                    nextState = S13;                
-                end
-                else begin
-                    nextState = S15;
-                end
             end
 
             S15: begin
@@ -125,11 +134,50 @@ module FSM_Unit (
 
             S17: begin
                 InstrAddr = 8'h17;
-                nextState = S0;
+                if (ALUFlags[0] == 0) begin
+                    nextState = S16;                
+                end
+                else begin
+                    nextState = S18;
+					end
+				end
+				
+				S18: begin
+                InstrAddr = 8'h18;
+                nextState = S19;
+            end
+				
+				S19: begin
+                InstrAddr = 8'h19;
+                nextState = S20;
+            end
+				
+				S20: begin
+                InstrAddr = 8'h20;
+                nextState = S21;
+            end
+				
+				S21: begin
+                InstrAddr = 8'h21;
+                nextState = S22;
+            end
+				
+				S22: begin
+                InstrAddr = 8'h22;
+                nextState = S23;
+            end
+				
+				S23: begin
+                InstrAddr = 8'h23;
+                if (ALUFlags[0] == 0) begin
+                    nextState = S22;                
+                end
+                else begin
+                    nextState = S0;
+					 end
             end
 
             default:begin
-		
                 InstrAddr = 8'h00;
                 nextState = S0;
 				end

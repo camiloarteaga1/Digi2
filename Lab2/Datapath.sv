@@ -22,7 +22,7 @@ module Datapath #(
     logic [N-1:0] RD1; //Register from register file
     logic [N-1:0] WriteData; //Register from register file same as RD2
     logic [N-1:0] ReadData; //Data from the memory module
-    logic [N-1:0] M1; //Signal from Multiplexer 1
+    logic [1:0] M1; //Signal from Multiplexer 1
     logic [N-1:0] M2; //Signal from Multiplexer 2
     logic [N-1:0] M3; //Signal from Multiplexer 3
 
