@@ -26,14 +26,15 @@ module SimpleCPU (
     SevenSegmentDisplay display1(.Hex_in(WriteP1[7:4]), .Segment_out(displays[13:7]));
     SevenSegmentDisplay display2(.Hex_in(WriteP1[3:0]), .Segment_out(displays[6:0]));
 	 
-	 always_comb begin
-		case(state)
-			2'b00: displays[20:14] = 7'b1001000;//X
-			2'b01: displays[20:14] = 7'b1000100;//Y
-			2'b10: displays[20:14] = 7'b0010010;//Z
-			2'b11: displays[20:14] = 7'b0001000;//Answer
-			default: displays[20:14] = 7'b1111111;
-		endcase
-	 end
+	 assign displays[20:14] = 7'b1001000;//X
+//	 always_comb begin
+//		case(state)
+//			2'b00: displays[20:14] = 7'b1001000;//X
+//			2'b01: displays[20:14] = 7'b1000100;//Y
+//			2'b10: displays[20:14] = 7'b0010010;//Z
+//			2'b11: displays[20:14] = 7'b0001000;//Answer
+//			default: displays[20:14] = 7'b1111111;
+//		endcase
+//	 end
 
 endmodule

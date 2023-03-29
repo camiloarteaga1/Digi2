@@ -30,11 +30,11 @@ module Controller_Unit_FSM (
 	 
 	 
 	 always_comb begin 
-		if (InstrAddr>=8'h00 && InstrAddr<8'h04)
+		if (InstrAddr>=0 && InstrAddr<4)
 			state=2'b00;
-		else if(InstrAddr>8'h03 && InstrAddr<8'h10)
+		else if(InstrAddr>3 && InstrAddr<10)
 			state=2'b01;
-		else if (InstrAddr>8'h09 && InstrAddr<8'h15)
+		else if (InstrAddr>9 && InstrAddr<15)
 			state=2'b10;
 		else 
 			state=2'b11;
