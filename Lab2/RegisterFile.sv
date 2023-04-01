@@ -7,20 +7,22 @@ module RegisterFile (
 
 	logic [7:0] Register [3:0];//4 registers of 8-bits each
 	
-	//8-bits outputs
-	assign RD1 = Register[RA1];
-	assign RD2 = Register[RA2];
-	
 	always_ff @(posedge CLK, posedge reset) begin
-		if (reset) begin//reset registers
-			for (int i = 0; i<4; ++i) 
-							Register[i] <= 8'h00;	
+		if (reset) begin//reset registers 
+			Register[0] <= 8'h00;
+			Register[1] <= 8'h00;
+			Register[2] <= 8'h00;
+			Register[3] <= 8'h00;
 		end 
-			else if (WE3==0) begin//enable
+			else if (WE3) begin//enable
 					Register[RA3] <= WD3;
 		end
 	end
 
+	//8-bits outputs
+	assign RD1 = Register[RA1];
+	assign RD2 = Register[RA2];
+	
 endmodule
 
 module RegisterFile_tb ();

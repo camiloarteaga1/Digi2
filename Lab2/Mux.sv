@@ -1,4 +1,4 @@
-module Mux #(
+module Muxes #(
     //Array size, number of bits
     parameter N = 8
 ) (
