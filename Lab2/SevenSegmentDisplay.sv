@@ -1,6 +1,6 @@
 module SevenSegmentDisplay(
 	input logic [3:0] Hex_in,
-	output wire [6:0] Segment_out
+	output logic [6:0] Segment_out
 	);
 	
 	 always_comb begin
@@ -19,7 +19,7 @@ module SevenSegmentDisplay(
             4'hA: Segment_out[6:0] = 7'b0001000; // "A"
             4'hB: Segment_out[6:0] = 7'b1100000; // "B"
             4'hC: Segment_out[6:0] = 7'b0110001; // "c"
-            4'hD: Segment_out[6:0] = 7'b0111101; // "D"
+            4'hD: Segment_out[6:0] = 7'b1000010; // "D"
             4'hE: Segment_out[6:0] = 7'b0110000; // "E"
             default : Segment_out[6:0] = 7'b0111000; //"F" 
         endcase

@@ -14,7 +14,7 @@ module ControllerUnit(
 			ALUCntr = 3'b000;
 		end
 		
-		else if (ReadInstr == 3'b111) begin
+		else if (ReadInstr[15:13] == 3'b111) begin
 			ALUorM = 0;
 			WE = 1;
 			ALUCntr = 3'b000;
