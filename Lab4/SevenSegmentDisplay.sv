@@ -4,7 +4,7 @@ module SevenSegmentDisplay(
 	);
 	
 	 always_comb begin
-									  //abcdefg
+												   //abcdefg
         case (Hex_in)					  //0123456
             4'h0: Segment_out[6:0] = 7'b0000001; // "0"
             4'h1: Segment_out[6:0] = 7'b1001111; // "1"

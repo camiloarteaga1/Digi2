@@ -15,12 +15,13 @@ module ALU #(
     localparam And = 2'b10; //Result = A AND B
     localparam Or = 2'b11; //Result = A OR B
     
-    /*ALUFlags[0] = 1 - Zero Flag
-      ALUFlags[0] = 0 - !Zero Flag
-      ALUFlags[1] = 1 - Carry Flag
-      ALUFlags[1] = 0 - !Carry Flag
-      ALUFlags[2] = 1 - Negative Flag
-      ALUFlags[2] = 0 - !Negative Flag
+    /*
+		ALUFlags[0] = 1 - Negative Flag
+      ALUFlags[0] = 0 - !Negative Flag
+		ALUFlags[1] = 1 - Zero Flag
+      ALUFlags[1] = 0 - !Zero Flag
+      ALUFlags[2] = 1 - Carry Flag
+      ALUFlags[2] = 0 - !Carry Flag
       ALUFlags[3] = 1 - Overflow Flag
       ALUFlags[3] = 0 - !Overflow Flag
     */
@@ -33,9 +34,9 @@ module ALU #(
     assign bTemp = Cntr[0] == 0 ? B : ~B;
 
     //Flags
-    assign ALUFlags[0] = Result == 0 ? 1 : 0; //Zero Flag
-    assign ALUFlags[1] = ~Cntr[1] & sum[N]; //Carry Flag
-    assign ALUFlags[2] = Result[N-1]; //Negative Flag
+	 assign ALUFlags[0] = Result[N-1]; //Negative Flag
+    assign ALUFlags[1] = Result == 0 ? 1 : 0; //Zero Flag
+    assign ALUFlags[2] = ~Cntr[1] & sum[N]; //Carry Flag
     assign ALUFlags[3] = (Cntr[0] ~^ A[N-1] ~^ B[N-1]) & (A[N-1] ^ sum[N-1]) & (~Cntr[1]); //Overflow Flag
 
     //ALU definition

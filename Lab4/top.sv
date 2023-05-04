@@ -8,14 +8,14 @@ module top(input logic clk, reset, button,
         logic [7:0] deco_displays_seven_segments;
         
         // instantiate processor and memories
-        arm arm(clk, reset, PC, Instr, MemWrite, DataAdr,
+        arm arm(clk, ~reset, PC, Instr, MemWrite, DataAdr,
                 WriteData, ReadData);
 
         imem imem(PC, Instr);
-        dmem dmem(clk, MemWrite, button, sw, DataAdr, WriteData, ReadData, deco_displays_seven_segments);
+        dmem dmem(clk, MemWrite, ~button, sw, DataAdr, WriteData, ReadData, deco_displays_seven_segments);
 
         //Seven segments display
-        SevenSegmentDisplay deco1(deco_displays_seven_segments[7:4], displays[13:8]);
-        SevenSegmentDisplay deco2(deco_displays_seven_segments[3:0], displays[7:0]);
+        SevenSegmentDisplay deco1(deco_displays_seven_segments[7:4], displays[13:7]);
+        SevenSegmentDisplay deco2(deco_displays_seven_segments[3:0], displays[6:0]);
 
 endmodule
