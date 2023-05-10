@@ -46,12 +46,12 @@ mult2:
 	SUBS R12, R0, #0 //Comparar i con cero
 	BNE mult2 //En caso de que i sea diferente de cero, seguir multiplicando.
 	
-	ADD R10, R10, #1 //R10 será 2, por lo que ahora realizará C*Z
+	ADD R10, R10, #2 //R10 será 2, por lo que ahora realizará C*Z
 	B GetPuls
 	
 DoCZ: //Calcular C*Z = 2*Z y resultado final
 	ADD R8, R1, R1 //2*Z = Z+Z
-	ADD R6, R9, R8 //V=5*Y+2*Z
-	SUB R11, R11, R6//3X-V
+	SUB R6, R8, R9 //V=-5*Y+2*Z
+	ADD R11, R11, R6//3X-V
 	STR	R11, [R7, #0] // Mostrar Resultado en los displays.
 Devices:	.DC.L	0xC0000000	
