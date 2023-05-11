@@ -2,14 +2,17 @@ module decoder(input logic clk, reset,
             input logic [1:0] Op,
             input logic [5:0] Funct,
             input logic [3:0] Rd,
-            output logic BranchS, PCS, RegW, MemW,
+            output logic PCS, RegW, MemW,
             output logic IRWrite, NextPC, AdrSrc, ALUSrcA,
             output logic [1:0] ResultSrc, ALUSrcB,
             output logic [1:0] ALUControl, FlagW,
             output logic [1:0] ImmSrc, RegSrc);
 
+    logic BranchS, ALUOp;
+
     FSM machine (clk, reset, Op, Funct, Rd, RegW, MemW, IRWrite, 
-                NextPC, AdrSrc, ALUSrcA, BranchS, ResultSrc, ALUSrcB);
+                NextPC, AdrSrc, ALUSrcA, BranchS, ALUOp, ResultSrc, 
+                ALUSrcB);
 
     // ALU Decoder
     always_comb

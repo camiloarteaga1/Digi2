@@ -4,7 +4,7 @@ module FSM (
     input logic [5:0] Funct,
     input logic [3:0] Rd,
 	output logic RegW, MemW, IRWrite, NextPC, 
-    output logic AdrSrc, ALUSrcA, BranchS,
+    output logic AdrSrc, ALUSrcA, BranchS, ALUOp
     output logic [1:0] ResultSrc, ALUSrcB
  );
 
