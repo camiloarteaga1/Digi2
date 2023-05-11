@@ -3,7 +3,9 @@ module FSM (
     input logic [1:0] Op,
     input logic [5:0] Funct,
     input logic [3:0] Rd,
-	output logic [2:0] stat
+	output logic RegW, MemW, IRWrite, NextPC, 
+    output logic AdrSrc, ALUSrcA, BranchS,
+    output logic [1:0] ResultSrc, ALUSrcB
  );
 
     //Definition of states
@@ -15,8 +17,7 @@ module FSM (
     //logic signed [15:0] a_aux, b_aux, s_aux;
     State currentState, nextState;
 
-    logic RegW, MemW, IRWrite, NextPC, AdrSrc, ALUSrcA, BranchS;
-    logic [1:0] ResultSrc, ALUSrcB;
+    logic [3:0] stat;
 
     //Sequential circuit to change the states
     always_ff @(posedge reset, posedge clk) begin

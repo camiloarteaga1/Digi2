@@ -1,39 +1,15 @@
-module decoder(input logic [1:0] Op,
+module decoder(input logic clk, reset,
+            input logic [1:0] Op,
             input logic [5:0] Funct,
             input logic [3:0] Rd,
-            output logic [1:0] FlagW,
-            output logic PCS, RegW, MemW,
-            output logic MemtoReg, ALUSrc,
-            output logic [1:0] ImmSrc, RegSrc, ALUControl);
+            output logic BranchS, PCS, RegW, MemW,
+            output logic IRWrite, NextPC, AdrSrc, ALUSrcA,
+            output logic [1:0] ResultSrc, ALUSrcB,
+            output logic [1:0] ALUControl, FlagW,
+            output logic [1:0] ImmSrc, RegSrc);
 
-    logic [9:0] controls;
-    logic Branch, ALUOp;
-
-    // Main Decoder
-    always_comb
-        casex(Op)
-
-            // Data-processing immediate
-            2'b00: if (Funct[5]) controls = 10'b0000101001;
-
-            // Data-processing register
-                else controls = 10'b0000001001;
-
-            // LDR
-            2'b01: if (Funct[0]) controls = 10'b0001111000;
-
-                // STR
-                else controls = 10'b1001110100;
-
-            // B
-            2'b10: controls = 10'b0110100010;
-            
-            // Unimplemented
-            default: controls = 10'bx;
-        endcase
-        
-    assign {RegSrc, ImmSrc, ALUSrc, MemtoReg,
-    RegW, MemW, Branch, ALUOp} = controls;
+    FSM machine (clk, reset, Op, Funct, Rd, RegW, MemW, IRWrite, 
+                NextPC, AdrSrc, ALUSrcA, BranchS, ResultSrc, ALUSrcB);
 
     // ALU Decoder
     always_comb
@@ -58,5 +34,9 @@ module decoder(input logic [1:0] Op,
 
     // PC Logic
     assign PCS = ((Rd == 4'b1111) & RegW) | Branch;
+
+    //Instruction Decoder
+    assign RegSrc = {Op[0], Op[1]}
+    assign ImmSrc[1:0] = Op;
     
 endmodule
