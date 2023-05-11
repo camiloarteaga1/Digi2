@@ -4,15 +4,13 @@ module top(input logic clk, reset, button,
             output logic [31:0] WriteData, DataAdr,
             output logic MemWrite);
                     
-        logic [31:0] PC, Instr, ReadData;
+        logic [31:0] ReadData;
         logic [7:0] deco_displays_seven_segments;
         
         // instantiate processor and memories
-        arm arm(clk, ~reset, PC, Instr, MemWrite, DataAdr,
-                WriteData, ReadData);
+        arm arm(clk, ~reset, DataAdr, MemWrite, WriteData, ReadData);
 
-        imem imem(PC, Instr);
-        dmem dmem(clk, MemWrite, ~button, sw, DataAdr, WriteData, ReadData, deco_displays_seven_segments);
+        mem mem(clk, MemWrite, ~button, sw, DataAdr, WriteData, ReadData, deco_displays_seven_segments);
 
         //Seven segments display
         SevenSegmentDisplay deco1(deco_displays_seven_segments[7:4], displays[13:7]);
