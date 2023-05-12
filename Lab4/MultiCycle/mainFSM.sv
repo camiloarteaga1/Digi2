@@ -30,7 +30,7 @@ module FSM (
     end
 
     //FSM
-    always_comb begin
+    always begin
 		//clk_secondReset = 0;
 		case (currentState)
 			Fetch: begin
@@ -47,7 +47,7 @@ module FSM (
                 nextState = Decode; //Next state
             end
 				
-			Decode:	begin
+			Decode: begin
                 stat = 0001;
 
                 ALUSrcA = 1;
@@ -59,10 +59,10 @@ module FSM (
                 if (Op == 01)
                     nextState = MemAdr;
 
-                else if (Op == 00 && Funct[5] == 0)
+                else if ((Op == 00) && (Funct[5] == 0))
                     nextState = ExecuteR;
 
-                else if (Op == 00 && Funct[5] == 1)
+                else if ((Op == 00) && (Funct[5] == 1))
                     nextState = ExecuteI;
                 
                 else if (Op == 10)

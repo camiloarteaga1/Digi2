@@ -18,7 +18,7 @@ module datapath(input logic clk, reset,
 
     logic [31:0] PCNext,PC,Data;
     logic [31:0] RD1, RD1Aux, RD2, ExtImm, SrcA, SrcB, ALUOut, ALUResult, Result;
-    logic [3:0] RA1, RA2;
+    logic [31:0] RA1, RA2;
     
     //PC LOGIC
     flopenr #(32) pcreg(clk,reset,PCWrite,PCNext,PC);
@@ -32,7 +32,7 @@ module datapath(input logic clk, reset,
     
     regfile rf(clk, RegWrite, RA1, RA2,
                 Instr[15:12], Result, Result,
-                SrcA, WriteData);
+                RD1, RD2);
     extend ext(Instr[23:0], ImmSrc, ExtImm);
     
     //ALU logic

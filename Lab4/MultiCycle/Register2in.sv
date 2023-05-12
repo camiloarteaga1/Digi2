@@ -5,7 +5,7 @@ module Register2in #(parameter WIDTH = 8)
                 output logic [WIDTH-1:0] Q1,
                 output logic [WIDTH-1:0] Q2);
 
-  logic [1:0] registro_q;
+  logic [WIDTH*2-1:0] registro_q;
 
   always_ff @(posedge clk, posedge reset) begin
     if (reset) begin
