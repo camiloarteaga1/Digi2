@@ -36,10 +36,10 @@ module decoder(input logic clk, reset,
         end
 
     // PC Logic
-    assign PCS = ((Rd == 4'b1111) & RegW) | Branch;
+    assign PCS = ((Rd == 4'b1111) & RegW) | BranchS;
 
     //Instruction Decoder
-    assign RegSrc = {Op[0], Op[1]}
+    assign RegSrc = {Op[0], Op[1]};
     assign ImmSrc[1:0] = Op;
     
 endmodule

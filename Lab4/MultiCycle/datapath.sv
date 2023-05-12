@@ -13,10 +13,11 @@ module datapath(input logic clk, reset,
                 
                 output logic [31:0] Adr,
                 output logic [31:0] WriteData,
-                input logic [31:0] ReadData);
+                input logic [31:0] ReadData,
+					 output logic [31:0] Instr);
 
-    logic [31:0] PCNext,PC,Instr,Data;
-    logic [31:0] RD1, RD1Aux, RD2, ExtImm, SrcA, SrcB, ALUOut, Result;
+    logic [31:0] PCNext,PC,Data;
+    logic [31:0] RD1, RD1Aux, RD2, ExtImm, SrcA, SrcB, ALUOut, ALUResult, Result;
     logic [3:0] RA1, RA2;
     
     //PC LOGIC
@@ -40,7 +41,7 @@ module datapath(input logic clk, reset,
     mux3 #(32) srcBmux(WriteData,ExtImm,32'b100,ALUSrcB,SrcB);
     ALU #(32) alu (.A(SrcA), .B(SrcB), .Cntr(ALUControl), .Result(ALUResult), .ALUFlags(ALUFlags));
 
-    flopr #(32) rfRegister2(clk, reset,ALUResult,ALUOut);
+    flopr #(32) rfRegister3(clk, reset,ALUResult,ALUOut);
     mux3 #(32) Alumux(ALUOut,Data,ALUResult,ResultSrc,Result);
 
 endmodule

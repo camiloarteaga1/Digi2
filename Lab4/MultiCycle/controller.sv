@@ -7,7 +7,7 @@ module controller(input logic clk, reset,
                 output logic [1:0] ResultSrc,
                 output logic [1:0] ALUControl,
                 output logic [1:0] ALUSrcB,
-                output logic ALUSrcA
+                output logic ALUSrcA,
                 output logic [1:0] ImmSrc,
                 output logic RegWrite);
 

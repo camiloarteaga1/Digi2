@@ -3,13 +3,13 @@ module FSM (
     input logic [1:0] Op,
     input logic [5:0] Funct,
     input logic [3:0] Rd,
-	output logic RegW, MemW, IRWrite, NextPC, 
-    output logic AdrSrc, ALUSrcA, BranchS, ALUOp
+	 output logic RegW, MemW, IRWrite, NextPC, 
+    output logic AdrSrc, ALUSrcA, BranchS, ALUOp,
     output logic [1:0] ResultSrc, ALUSrcB
  );
 
     //Definition of states
-    typedef enum logic [2:0] {Fetch, Decode, MemAdr, MemRead, MemWB, MemWrite,
+    typedef enum logic [3:0] {Fetch, Decode, MemAdr, MemRead, MemWB, MemWrite,
                             ExecuteR, ExecuteI, ALUWB, Branch} State;
 
     //Signals
@@ -22,7 +22,7 @@ module FSM (
     //Sequential circuit to change the states
     always_ff @(posedge reset, posedge clk) begin
 		if (reset) begin
-			currentState <= Sin;
+			currentState <= Fetch;
         end
 		else begin
 			currentState <= nextState;
@@ -56,16 +56,16 @@ module FSM (
                 ResultSrc = 10;
 
                 //Next state
-                if (Op = 01)
+                if (Op == 01)
                     nextState = MemAdr;
 
-                else if (Op = 00 && Funct[5] = 0)
+                else if (Op == 00 && Funct[5] == 0)
                     nextState = ExecuteR;
 
-                else if (Op = 00 && Funct[5] = 1)
+                else if (Op == 00 && Funct[5] == 1)
                     nextState = ExecuteI;
                 
-                else if (Op = 10)
+                else if (Op == 10)
                     nextState = Branch;
 
                 else
@@ -81,7 +81,7 @@ module FSM (
                 ALUOp = 0;
 
                 //Next state
-                if (Funct[0] = 1)
+                if (Funct[0] == 1)
                     nextState = MemRead;
 
                 else

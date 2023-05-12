@@ -3,7 +3,7 @@ module Register2in #(parameter WIDTH = 8)
                 input logic [WIDTH-1:0] RD1,
                 input logic [WIDTH-1:0] RD2,
                 output logic [WIDTH-1:0] Q1,
-                output logic [WIDTH-1:0] Q2;);
+                output logic [WIDTH-1:0] Q2);
 
   logic [1:0] registro_q;
 
