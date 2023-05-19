@@ -11,7 +11,7 @@ module mem(input logic clk, we, button,
     logic [31:0] RAM[63:0];
 
 	initial
-    $readmemh("D:/Documents/Repositories/Probe2/mem_file.dat",RAM);
+    $readmemh("D:/Documents/Repositories/Probe2/memfile.dat",RAM);
 
 	 always_comb begin
 		
@@ -23,9 +23,6 @@ module mem(input logic clk, we, button,
 		
 		else if (a == address3)
 			rd = {24'b0, sw};
-			
-		else if (a == 0)
-			rd = address1;
 			
 		else
 			rd = RAM[a[31:2]];

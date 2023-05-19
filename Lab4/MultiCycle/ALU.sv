@@ -4,7 +4,7 @@ module ALU #(
     //Port definition
     input logic [N-1:0] A, //Array to operate with
     input logic [N-1:0] B, //Array to operate with
-    input logic unsigned [2:0] Cntr, //Defines the type of operation
+    input logic unsigned [1:0] Cntr, //Defines the type of operation
     output logic [N-1:0] Result, //Result
     output logic unsigned [3:0] ALUFlags //4-bits state of differents operations result: N (Negative), Z (Zero), C (Carry out), V (Overflow)
 );
@@ -35,7 +35,7 @@ module ALU #(
 
     //Flags
 	 assign ALUFlags[3] = Result[N-1]; //Negative Flag
-    assign ALUFlags[2] = Result == 0 ? 1 : 0; //Zero Flag
+    assign ALUFlags[2] = Result == 0 ? 1'b1 : 0; //Zero Flag
     assign ALUFlags[1] = ~Cntr[1] & sum[N]; //Carry Flag
     assign ALUFlags[0] = (Cntr[0] ~^ A[N-1] ~^ B[N-1]) & (A[N-1] ^ sum[N-1]) & (~Cntr[1]); //Overflow Flag
 

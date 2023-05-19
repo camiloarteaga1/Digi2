@@ -9,7 +9,7 @@ module datapath(input logic clk, reset,
                 input logic [1:0] ALUSrcB,
                 input logic [1:0] ALUControl,
                 output logic [3:0] ALUFlags,
-                input logic ResultSrc,
+                input logic [1:0] ResultSrc,
                 
                 output logic [31:0] Adr,
                 output logic [31:0] WriteData,
@@ -18,8 +18,10 @@ module datapath(input logic clk, reset,
 
     logic [31:0] PCNext,PC,Data;
     logic [31:0] RD1, RD1Aux, RD2, ExtImm, SrcA, SrcB, ALUOut, ALUResult, Result;
-    logic [31:0] RA1, RA2;
+    logic [3:0] RA1, RA2;
     
+	 assign PCNext = Result;
+	 
     //PC LOGIC
     flopenr #(32) pcreg(clk,reset,PCWrite,PCNext,PC);
     mux2 #(32) pcmux(PC,Result, AdrSrc, Adr);
