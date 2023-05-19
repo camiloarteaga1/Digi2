@@ -11,7 +11,7 @@ module mem(input logic clk, we, button,
     logic [31:0] RAM[63:0];
 
 	initial
-    $readmemh("D:/Documents/Repositories/Probe2/memfile.dat",RAM);
+    $readmemh("D:/Documents/Repositories/Probe2/memFileMul.dat",RAM);
 
 	 always_comb begin
 		

@@ -37,7 +37,7 @@ module ALU #(
 	 assign ALUFlags[3] = Result[N-1]; //Negative Flag
     assign ALUFlags[2] = Result == 0 ? 1'b1 : 0; //Zero Flag
     assign ALUFlags[1] = ~Cntr[1] & sum[N]; //Carry Flag
-    assign ALUFlags[0] = (Cntr[0] ~^ A[N-1] ~^ B[N-1]) & (A[N-1] ^ sum[N-1]) & (~Cntr[1]); //Overflow Flag
+    assign ALUFlags[0] = ~(Cntr[0] ^ A[N-1] ^ B[N-1]) & (A[N-1] ^ sum[N-1]) & (~Cntr[1]); //Overflow Flag
 
     //ALU definition
     always_comb begin

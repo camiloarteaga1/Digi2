@@ -8,19 +8,23 @@ module condlogic(input logic clk, reset,
     logic [1:0] FlagWrite;
     logic [3:0] Flags; 
     logic CondEx;
+	 logic CondAux;
 
     flopenr #(2)flagreg1(clk, reset, FlagWrite[1],
         ALUFlags[3:2], Flags[3:2]);
 
     flopenr #(2)flagreg0(clk, reset, FlagWrite[0],
         ALUFlags[1:0], Flags[1:0]);
+		  
+	 flopr #(1) condReg(clk, reset, CondEx, CondAux);
 
     // write controls are conditional
     condcheck cc(Cond, Flags, CondEx);
+	 
     assign FlagWrite = FlagW & {2{CondEx}};
-    assign RegWrite = RegW & CondEx;
-    assign MemWrite = MemW & CondEx;
-    assign PCWrite = NextPC | (PCS & CondEx);
+    assign RegWrite = RegW & CondAux;
+    assign MemWrite = MemW & CondAux;
+    assign PCWrite = NextPC | (PCS & CondAux);
 
 endmodule
 
