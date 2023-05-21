@@ -3,7 +3,9 @@ _start:
 	//3*X-5*Y+2*Z
 	SUB	R0, R15, R15 //Inicializar R0 en 0.
 	SUB	R10, R15, R15 //Inicializar R10 en 0.
-	LDR	R7, [R0, #0] //Cargar direccion inicial = C000_0000.
+	LDR	R7, [PC, #0]//Cargar direccion inicial = C000_0000.
+	B	GetPuls
+	.DC.L	0xC0000000
 GetPuls:
 	LDR	R1, [R7, #8] // R1 leer switches: X, Y, Z.
 	STR	R1, [R7, #0] // Mostrar R1 en los displays.
@@ -54,4 +56,6 @@ DoCZ: //Calcular C*Z = 2*Z y resultado final
 	SUB R6, R8, R9 //V=-5*Y+2*Z
 	ADD R11, R11, R6//3X-V
 	STR	R11, [R7, #0] // Mostrar Resultado en los displays.
-Devices:	.DC.L	0xC0000000	
+	
+Finish:
+	B Finish
